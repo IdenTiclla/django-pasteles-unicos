@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1>Mis pedidos</h1>
+<hr>
+<div class="row">
+    {% if pedidos %}
+        {% for pedido in pedidos %}
+            <div class="card m-5" style="width: 18rem;">
+                <img class="card-img-top" src="../{{pedido.imagen.url}}" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Cliente: {{pedido.cliente.nombre}} {{pedido.cliente.apellido_paterno}} {{pedido.cliente.apellido_materno}}</h5>
+                <p class="card-text">Tematica: {{pedido.descripcion_tematica}}</p>
+
+                <p class="card-text">Mis productos</p>
+                
+                <p class="card-text">
+                        
+                    {% for producto in pedido.productos.all %}
+                        -{{producto.nombre}}
+                        precio{{producto.precio}}
+                        <hr>
+                    {% endfor %}
+                </p>
+
+                <!-- agregado -->
+                <a href="pedido/comprobante/{{pedido.id}}" class="btn btn-primary m-1">Descargar Comprobante</a>
+                
+                <a href="pedido/{{pedido.id}}" class="btn btn-primary">Ver mi pedido</a>
+                </div>
+            </div>
+        {% endfor %}
+    
+    {% else %}
+        <h1>No tienes pedidos, realiza un pedido..</h1>
+    {% endif %}
+   
+</div>
+
+
+
+{% endblock %}

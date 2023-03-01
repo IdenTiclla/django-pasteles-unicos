@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h1>Pedido de: {{pedido.cliente.nombre}} {{pedido.cliente.apellido_paterno}}</h1>
+<hr>
+<h1>Tematica: {{pedido.descripcion_tematica}}</h1>
+<img  src="../{{pedido.imagen.url}}" alt="Card image cap" width="500">
+
+<hr>
+<h2>Productos:</h2>
+<div class="container">
+
+
+    {% for producto in pedido.productos.all %}
+        {{producto.nombre}} - {{producto.precio}} Bs
+
+    {% endfor %}
+    
+</div>
+<hr>
+<h2>Total: {{ total }} Bs</h2>
+
+<a href="/pedido/entregar/{{pedido.id}}" class="btn btn-primary btn-lg">Entregar pedido</a>
+{% endblock %}

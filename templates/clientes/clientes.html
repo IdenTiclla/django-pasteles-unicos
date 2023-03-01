@@ -1,0 +1,126 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Clientes</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/clientes" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre del cliente</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre del cliente"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Apellido paterno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="apellidoPaterno"
+          name="apellidoPaterno"
+          placeholder="Ingrese el apellido Paterno del cliente"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Apellido Materno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="apellidoMaterno"
+          name="apellidoMaterno"
+          placeholder="Ingrese el apellido Materno del cliente"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Direccion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="direccion"
+          name="direccion"
+          placeholder="Ingrese la direccion del cliente"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="nombre">Telefono</label>
+        <input
+          type="text"
+          class="form-control"
+          id="telefono"
+          name="telefono"
+          placeholder="Ingrese telefono del cliente"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="nombre">email</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Ingrese email del cliente"
+        />
+      </div>
+
+    
+
+      <button type="submit">Registrar Cliente</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if clientes|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre de empleado</th>
+                <th scope="col">Apellido paterno</th>
+                <th scope="col">Apellido materno</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Email</th>
+                <th scope="col">Acciones</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for cliente in clientes %}
+              <tr>
+                  <th scope="row">{{cliente.id}}</th>
+                  <td>{{cliente.nombre}}</td>
+                  <td>{{cliente.apellido_paterno}}</td>
+                  <td>{{cliente.apellido_materno}}</td>
+                  <td>{{cliente.direccion}}</td>
+                  <td>{{cliente.telefono}}</td>
+                  <td>{{cliente.email}}</td>
+
+                  <td>
+                    <a href="/clientes/update/{{cliente.id}}" class="btn btn-success">Actualizar</a>
+                    <a href="/clientes/delete/{{cliente.id}}" class="btn btn-danger confirmation">Eliminar</a>
+                  </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Clientes registrados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

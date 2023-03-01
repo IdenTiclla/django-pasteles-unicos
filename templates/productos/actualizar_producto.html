@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Actualizar Producto
+{% endblock %}
+
+{% block content %}
+<div class="col-md-5">
+    <h1>Actualizar Producto</h1>
+    <form action="/productos/update/{{producto.id}}" method="post">
+
+        {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre del Producto</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre del producto"
+          value="{{producto.nombre}}"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione el tamaño del producto</label>
+        <select name="tamaño" class="form-select"  aria-label="Default select example">
+            <option value="Grande" {% if producto.tamaño == 'Grande' %}selected{% endif %}>Grande</option>
+            <option value="Mediano" {% if producto.tamaño == 'Mediano' %}selected{% endif %}>Mediano</option>
+            <option value="Chico" {% if producto.tamaño == 'Chico' %}selected{% endif %}>Chico</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione el sabor del producto</label>
+        <select name="sabor" class="form-select"  aria-label="Default select example" value="{{producto.sabor}}">
+            <option value="Vainilla" {% if producto.sabor == 'Vainilla' %}selected{% endif %}>Vainilla</option>
+            <option value="Chocolate" {% if producto.sabor == 'Chocolate' %}selected{% endif %}>Chocolate</option>
+            <option value="Frutilla" {% if producto.sabor == 'Frutilla' %}selected{% endif %}>Frutilla</option>
+            <option value="Coco" {% if producto.sabor == 'Coco' %}selected{% endif %}>Coco</option>
+            <option value="Manzana" {% if producto.sabor == 'Manzana' %}selected{% endif %}>Manzana</option>
+
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="precio">Precio del producto</label>
+        <input
+          type="number"
+          class="form-control"
+          id="precio"
+          name="precio"
+          placeholder="Ingrese el precio del producto"
+          value="{{producto.precio}}"
+        />
+      </div>
+  
+      
+  
+        <button type="submit">Actualizar producto</button>
+    </form>
+  </div>
+
+{% endblock %}

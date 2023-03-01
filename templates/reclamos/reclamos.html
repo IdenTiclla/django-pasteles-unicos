@@ -1,0 +1,75 @@
+{% extends 'layouts/base.html' %} {% block content %}
+
+<h1>Realizar un reclamo</h1>
+<div class="row">
+  <div class="col-md-5">
+    <!-- es re importante para subir multiple archivos enctype -->
+    <form action="/reclamos" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione cliente</label>
+        <select
+          name="cliente_id"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          {% for cliente in clientes %}
+          <option value="{{cliente.id}}">
+            {{cliente.nombre}} {{ cliente.apellido_paterno }} {{cliente.apellido_materno}}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <label for="">Descripcion del reclamo</label>
+      <div class="form-group">
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="floatingTextarea"
+            name="descripcion_reclamo"
+            required
+          ></textarea>
+          <label for="floatingTextarea">Descripcion de la tematica</label>
+        </div>
+      </div>
+
+      <button>Realizar Reclamo</button>
+    </form>
+  </div>
+
+  <div class="col-md-7">
+    {% if reclamos|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Fecha de Reclamo</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for reclamo in reclamos %}
+              <tr>
+                  <th scope="row">{{reclamo.id}}</th>
+                  <td>{{reclamo.cliente}}</td>
+                  <td>{{reclamo.descripcion}}</td>
+                  <td>{{reclamo.fecha_creacion}}</td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Reclamos registrados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+
+{% endblock %}
