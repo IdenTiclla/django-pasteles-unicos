@@ -38,7 +38,7 @@
               <select name="productos_id" class="form-select" multiple aria-label="Default select example">
 
                 {% for producto in productos %}
-                  <option value="{{producto.id}}">{{producto.nombre}} - {{producto.precio}} Bs</option>
+                  <option value="{{producto.id}}">{{producto.nombre}} {{producto.tamaño}} {{producto.sabor}} - {{producto.precio}} Bs</option>
                 
                 {% endfor %}
               </select>

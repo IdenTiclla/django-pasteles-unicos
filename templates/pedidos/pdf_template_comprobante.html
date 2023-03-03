@@ -21,8 +21,8 @@
         <!-- Content for Static Frame 'header_frame' -->
         <div id="header_content">
             <h3>Pasteles Unicos</h3>
+            <h3>Tematica del pedido: {{tematica}}</h3>
             <h3>NIT: 48517760XX</h3>
-
             <h3>{{company}}</h3>
         </div>
     
@@ -65,7 +65,8 @@
         </table>
     
         <hr>
-    
+        <p><strong>80%: {{eighty_percent}} Bs PAGADO</strong></p>
+        <p><strong>20%: {{twenty_percent}} Bs {%if entregado %}PAGADO{%endif%}</strong></p>
         <p><strong>Total: {{total}} Bs</strong></p>
     </body>
     </html>

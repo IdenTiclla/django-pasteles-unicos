@@ -155,16 +155,18 @@ def pedidos_entregados(request):
 #  ruta para descargar el comprobante
 def descargar_comprobante(request, id):
     pedido = Pedido.objects.get(id=id)
+    tematica = pedido.descripcion_tematica
+    entregado = pedido.entregado
     cliente = pedido.cliente
     nombre_completo = f"{cliente.nombre} {cliente.apellido_paterno} {cliente.apellido_materno}"
-    email = cliente.email
-    telefono = cliente.telefono
 
     total = 0
     productos = pedido.productos.all()
     for producto in productos:
         total += producto.precio
     
+    eighty_percent = total * 0.80
+    twenty_percent = total * 0.20
     data = {
 	"address": "123 Street name",
 	"city": "Vancouver",
@@ -172,12 +174,15 @@ def descargar_comprobante(request, id):
 	"zipcode": "98663",
 	"website": "pastelesunicos.com",
 
-
+    "tematica": tematica,
 	"company": nombre_completo,
 	"phone": cliente.telefono,
     "productos": productos,
-	"email": email,
-    "total": total
+	"email": cliente.email,
+    "total": total,
+    "eighty_percent": eighty_percent,
+    "twenty_percent": twenty_percent,
+    "entregado": entregado
 	}
     pdf = render_to_pdf("pedidos/pdf_template_comprobante.html", data)
     return HttpResponse(pdf, content_type='application/pdf')

@@ -11,15 +11,21 @@
 <h2>Productos:</h2>
 <div class="container">
 
+    <ul>
 
-    {% for producto in pedido.productos.all %}
-        {{producto.nombre}} - {{producto.precio}} Bs
-
-    {% endfor %}
+        {% for producto in pedido.productos.all %}
+            <li>{{producto.nombre}} {{producto.tamaño}} {{producto.sabor}}- {{producto.precio}} Bs</li>
+    
+        {% endfor %}
+    </ul>
     
 </div>
 <hr>
 <h2>Total: {{ total }} Bs</h2>
 
-<a href="/pedido/entregar/{{pedido.id}}" class="btn btn-primary btn-lg">Entregar pedido</a>
+{% if not pedido.entregado %}
+    <a href="/pedido/entregar/{{pedido.id}}" class="btn btn-primary btn-lg">Entregar pedido</a>
+{% else %}
+    <h2>Pedido fue entregado!</h2>
+{% endif %}
 {% endblock %}
